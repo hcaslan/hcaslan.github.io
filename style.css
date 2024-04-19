@@ -1,0 +1,124 @@
+body {
+    background: #222831;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .nav {
+    display: inline-block;
+    background: #31363F;
+    border-radius: 3px;
+    border-top: 2px solid #76ABAE;
+    height: 60px;
+  }
+  .nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav ul li {
+    position: relative;
+    display: inline-block;
+    height: 60px;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    vertical-align: middle;
+    float: left;
+  }
+  .nav ul li:first-child,
+  .nav ul li:nth-child(2),
+  .nav ul li:last-child {
+    border-left: 0;
+  }
+  .nav ul li:nth-child(2) a:before,
+  .nav ul li:nth-last-child(2) a:before,
+  .nav ul li:nth-child(2) a:after,
+  .nav ul li:nth-last-child(2) a:after {
+    -webkit-transition: all 0.3s linear 0s;
+    -moz-transition: all 0.3s linear 0s;
+    -ms-transition: all 0.3s linear 0s;
+    -o-transition: all 0.3s linear 0s;
+    transition: all 0.3s linear 0s;
+  }
+  .nav ul li:nth-child(2) > a:before {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: -15px;
+    content: '';
+    width: 0;
+    height: 0;
+    display: block;
+    border-right: 15px solid #31363F;
+    border-top: 60px solid transparent;
+  }
+  .nav ul li:nth-last-child(2) a:after {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: -15px;
+    content: '';
+    width: 0;
+    height: 0;
+    display: block;
+    border-left: 15px solid #31363F;
+    border-bottom: 60px solid transparent;
+  }
+
+  .nav ul li a {
+    position: relative;
+    display: block;
+    padding: 0 25px;
+    color: #76ABAE;
+    font-size: 14px;
+    line-height: 60px;
+    text-decoration: none;
+    -webkit-transition: all 0.3s linear 0s;
+    -moz-transition: all 0.3s linear 0s;
+    -ms-transition: all 0.3s linear 0s;
+    -o-transition: all 0.3s linear 0s;
+    transition: all 0.3s linear 0s;
+  }
+
+  #li1{
+    background: #76ABAE;
+  }
+
+  .nav ul li a:hover {
+    background: #EEEEEE;
+  }
+  .nav ul li a:hover:before {
+    border-right: 15px solid #EEEEEE;
+  }
+  .nav ul li a:hover:after {
+    border-left: 15px solid #EEEEEE;
+  }
+
+  
+  .nav ul li a.logo {
+    background: #76ABAE;
+    width: 50px;
+    height: 50px;
+    padding: 5px 30px 5px 20px;
+    line-height: 1;
+    vertical-align: middle;
+  }
+  .nav ul li a.logo:hover {
+    background: #31363F;
+  }
+  .nav ul li a.logo img {
+    width: 100%;
+  }
+
+  .info {
+    width: 300px;
+    margin: 20px auto;
+    text-align: center;
+  }
+  .info span .fa {
+    color: #EEEEEE;
+  }
+ 
+
+
+  
