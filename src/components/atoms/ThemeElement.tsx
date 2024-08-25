@@ -5,49 +5,36 @@ import { Palette, PaletteOptions } from '@mui/material/styles/createPalette';
 // Extend the Palette and PaletteOptions interfaces
 declare module '@mui/material/styles' {
     interface Palette {
-        myLightColour: Palette['primary'];
-        myBackgroundColour: Palette['primary'];
-        mySecondaryColor: Palette['primary'];
-        primaryButtonOnly: Palette['primary'];
+        paletteFirstColour: Palette['primary'];
+        paletteSecondColour: Palette['primary'];
+        paletteThirdColour: Palette['primary'];
+        paletteFourthColour: Palette['primary'];
     }
     interface PaletteOptions {
-        myLightColour?: PaletteOptions['primary'];
-        myBackgroundColour?: PaletteOptions['primary'];
-        mySecondaryColor?: PaletteOptions['primary'];
-        primaryButtonOnly?: PaletteOptions['primary'];
+        paletteFirstColour?: PaletteOptions['primary'];
+        paletteSecondColour?: PaletteOptions['primary'];
+        paletteThirdColour?: PaletteOptions['primary'];
+        paletteFourthColour?: PaletteOptions['primary'];
     }
 }
 
 const theme = createTheme({
     palette: {
-        primary: {
-            main: '#222831',
+        paletteFirstColour: {
+            main: '#08D9D6',
         },
-        myLightColour: {
-            main: '#00ADB5',
+        paletteSecondColour: {
+            main: '#252A34',
         },
-        myBackgroundColour: {
-            main: '#EEEEEE',
+        paletteThirdColour: {
+            main: '#FF2E63'
         },
-        mySecondaryColor: {
-            main: '#393E46'
-        },
-        success: {
-            main: '#00ADB5',
-            contrastText: '#fff',
-        },
-        secondary: {
-            main: '#5C4DFF',
-            contrastText: '#fff',
-        },
-        error: {
-            main: '#D32F2F',
-            contrastText: '#fff',
-        },
-        warning: {
-            main: '#FFA726',
-            contrastText: '#fff',
-        },
+        paletteFourthColour: {
+            main: '#EAEAEA'
+        }
+    },
+    typography: {
+        fontFamily: 'Roboto Mono, monospace',
     },
 });
 

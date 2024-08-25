@@ -1,21 +1,30 @@
 import * as React from 'react';
 import ThemeElement from "../atoms/ThemeElement";
-import { AppBar, Toolbar, Typography, Button, IconButton, Box, Menu, Container, MenuItem  } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, IconButton, Box, Menu, Container, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import logo from '../../images/logo.png';
-import {useNavigate} from "react-router-dom";
+import { useSelector } from 'react-redux';
+import {useEffect, useState} from "react";
 
 const pages = ['Projects', 'About', 'Contact'];
 
-const appBarStyle = {
-    background: 'transparent',
-    boxShadow: 'none',
-    height: 64, // Set a fixed height for the AppBar
-    position: 'absolute', top: 0, left: 0, width: '100%', backgroundColor: 'transparent', zIndex: 10
-};
-export function NavBar() {
-    const navigate = useNavigate();
+interface NavBarProps {
+    projectsSectionRef: React.RefObject<HTMLDivElement>; // Accept the ref as a prop
+}
+
+export function NavBar({ projectsSectionRef }: NavBarProps) {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const isHeaderOutOfView = useSelector((state: any) => state.headerReducer.isHeaderOutOfView);
+    const [scrolled, setScrolled] = useState(false);
+    const handleScroll = () => {
+        const offset = window.scrollY;
+        setScrolled(offset > 0);
+    };
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -24,42 +33,37 @@ export function NavBar() {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+
+    const handleMenuClick = (page: string) => {
+        if (page === 'Projects' && projectsSectionRef.current) {
+            projectsSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+        handleCloseNavMenu();
+    };
+
+    // Conditionally apply background color based on isHeaderOutOfView
+    const appBarStyle = {
+        backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(10px)' : 'none',
+        boxShadow: 'none',
+        height: 64,
+        transition: 'background-color 0.3s ease',
+    };
+
     return (
-        <ThemeElement children={
-            <AppBar position="static" sx={appBarStyle}>
+        <ThemeElement>
+            <AppBar position="sticky" sx={appBarStyle}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
-                        <Typography variant="h6" sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
-                            <Button onClick={() => navigate('/')}>
-                                <img src={logo} alt="logo" style={{ height: '52px' }} />
-                            </Button>
-                        </Typography>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            href="/"
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: '#08D9D6',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            HCA
-                        </Typography>
-
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                        <Box sx={{ flexGrow: 1 }} /> {/* Empty Box to push items to the right */}
+                        <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
                                 aria-haspopup="true"
                                 onClick={handleOpenNavMenu}
-                                style={{color: '#08D9D6'}}
+                                sx={{ color: isHeaderOutOfView ? 'paletteThirdColour.main' : 'paletteFourthColour.main', border: '1px solid', borderRadius: '5px', ":hover": { color: 'paletteThirdColour.main' } }}
                             >
                                 <MenuIcon />
                             </IconButton>
@@ -82,41 +86,18 @@ export function NavBar() {
                                 }}
                             >
                                 {pages.map((page) => (
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                    <MenuItem key={page} onClick={() => handleMenuClick(page)}>
                                         <Typography textAlign="center">{page}</Typography>
                                     </MenuItem>
                                 ))}
                             </Menu>
                         </Box>
-                        <Typography variant="h6" sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
-                            <Button onClick={() => navigate('/')}>
-                                <img src={logo} alt="logo" style={{ height: '52px' }} />
-                            </Button>
-                        </Typography>
-                        <Typography
-                            variant="h5"
-                            noWrap
-                            component="a"
-                            href="/"
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'flex', md: 'none' },
-                                flexGrow: 1,
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: '#08D9D6',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            HCA
-                        </Typography>
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, paddingRight: 20 }}>
                             {pages.map((page) => (
                                 <Button
                                     key={page}
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: '#08D9D6', display: 'block' }}
+                                    onClick={() => handleMenuClick(page)}
+                                    sx={{ my: 2, ml: 2, color: isHeaderOutOfView ? 'paletteThirdColour.main' : 'paletteFourthColour.main', fontSize: 20, display: 'block', ":hover": { color: 'paletteThirdColour.main' } }}
                                 >
                                     {page}
                                 </Button>
@@ -125,6 +106,6 @@ export function NavBar() {
                     </Toolbar>
                 </Container>
             </AppBar>
-        } />
+        </ThemeElement>
     );
-};
+}
