@@ -3,22 +3,26 @@ import ThemeElement from "../atoms/ThemeElement";
 import { AppBar, Toolbar, Typography, Button, IconButton, Box, Menu, Container, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from 'react-redux';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 const pages = ['Projects', 'About', 'Contact'];
 
 interface NavBarProps {
-    projectsSectionRef: React.RefObject<HTMLDivElement>; // Accept the ref as a prop
+    projectsSectionRef: React.RefObject<HTMLDivElement>;
+    aboutSectionRef: React.RefObject<HTMLDivElement>;
+    contactSectionRef: React.RefObject<HTMLDivElement>;
 }
 
-export function NavBar({ projectsSectionRef }: NavBarProps) {
+export function NavBar({ projectsSectionRef, aboutSectionRef, contactSectionRef }: NavBarProps) {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const isHeaderOutOfView = useSelector((state: any) => state.headerReducer.isHeaderOutOfView);
     const [scrolled, setScrolled] = useState(false);
+
     const handleScroll = () => {
         const offset = window.scrollY;
         setScrolled(offset > 0);
     };
+
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => {
@@ -35,8 +39,12 @@ export function NavBar({ projectsSectionRef }: NavBarProps) {
     };
 
     const handleMenuClick = (page: string) => {
-        if (page === 'Projects' && projectsSectionRef.current) {
+        if (page === 'Projects' && projectsSectionRef.current) { // Use the aboutSectionRef for Projects
             projectsSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+        } else if (page === 'About' && aboutSectionRef.current) { // Use the aboutSectionRef for About
+            aboutSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+        } else if (page === 'Contact' && contactSectionRef.current) { // Use the aboutSectionRef for About
+            contactSectionRef.current.scrollIntoView({ behavior: 'smooth' });
         }
         handleCloseNavMenu();
     };
@@ -63,7 +71,7 @@ export function NavBar({ projectsSectionRef }: NavBarProps) {
                                 aria-controls="menu-appbar"
                                 aria-haspopup="true"
                                 onClick={handleOpenNavMenu}
-                                sx={{ color: isHeaderOutOfView ? 'paletteThirdColour.main' : 'paletteFourthColour.main', border: '1px solid', borderRadius: '5px', ":hover": { color: 'paletteThirdColour.main' } }}
+                                sx={{ color: isHeaderOutOfView ? 'paletteThirdColour.main' : 'paletteFourthColour.main', border: '1px solid', borderRadius: '5px', ":hover": { color: 'paletteThirdColour.main' }, mt:1 }}
                             >
                                 <MenuIcon />
                             </IconButton>
@@ -83,6 +91,17 @@ export function NavBar({ projectsSectionRef }: NavBarProps) {
                                 onClose={handleCloseNavMenu}
                                 sx={{
                                     display: { xs: 'block', md: 'none' },
+                                    '& .MuiPaper-root': { // Target the pop-up container specifically
+                                        mt: '-64px',
+                                        ml: 2,
+                                        mr: 2,
+                                        backgroundColor: 'paletteThirdColour.main',
+                                        backdropFilter: 'blur(10px)',
+                                        color: 'paletteFourthColour.main',
+                                        width: '100vw',
+                                        maxWidth: '100%',
+                                        position: 'absolute',
+                                    },
                                 }}
                             >
                                 {pages.map((page) => (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { setHeaderOutOfView } from '../store/feature/actions' // Adjust the path as needed
+import { setHeaderOutOfView } from '../store/feature/actions'
 import ParticlesComponent from "../components/atoms/ParticlesComponent";
 import { CssBaseline } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -9,6 +9,7 @@ import ThemeElement from "../components/atoms/ThemeElement";
 import { InfoCard } from "../components/molecules/InfoCard";
 import ProjectsSection from "../components/molecules/ProjectsSection";
 import FooterElement from "../components/atoms/Footer";
+import AboutMeSection from "../components/molecules/AboutMeSection";
 
 const Root = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -35,7 +36,9 @@ const Header = styled('div')(({ theme }) => ({
 export function LandingPage() {
     const dispatch = useDispatch();
     const headerRef = useRef<HTMLDivElement>(null);
-    const projectsSectionRef = useRef<HTMLDivElement>(null); // Add this line
+    const projectsSectionRef = useRef<HTMLDivElement>(null);
+    const aboutSectionRef = useRef<HTMLDivElement>(null);
+    const contactSectionRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -63,13 +66,18 @@ export function LandingPage() {
         <ThemeElement>
             <Root>
                 <CssBaseline />
-                <NavBar projectsSectionRef={projectsSectionRef} /> {/* Pass the ref to NavBar */}
+                <NavBar
+                    projectsSectionRef={projectsSectionRef}
+                    aboutSectionRef={aboutSectionRef}
+                    contactSectionRef={contactSectionRef}
+                />
                 <Header ref={headerRef}>
                     <ParticlesComponent colour='#252A34'/>
                     <InfoCard />
                 </Header>
                 <Body>
-                    <ProjectsSection ref={projectsSectionRef} /> {/* Assign the ref to ProjectsSection */}
+                    <ProjectsSection ref={projectsSectionRef} />
+                    <AboutMeSection ref1={aboutSectionRef} ref2={contactSectionRef} />
                 </Body>
                 <Footer>
                     <FooterElement />
@@ -78,4 +86,3 @@ export function LandingPage() {
         </ThemeElement>
     );
 }
-

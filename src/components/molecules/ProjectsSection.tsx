@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import ThemeElement from "../atoms/ThemeElement";
-import { Container, Typography, Grid } from "@mui/material";
+import { Container, Typography, Grid, Box } from "@mui/material";
 import ProjectCard from "../atoms/ProjectCard";
 
 interface IProject {
@@ -26,9 +26,13 @@ const ProjectsSection = forwardRef<HTMLDivElement>((props, ref) => {
     return (
         <ThemeElement>
             <Container ref={ref} sx={{ py: 8, minHeight: '100vh' }} maxWidth="lg">
-                <Typography variant="h4" gutterBottom align="center">
-                    Projects
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 4 }}>
+                    <Box sx={{ flexGrow: 1, borderBottom: '2px solid', borderColor: 'paletteThirdColour.main' }} />
+                    <Typography variant="h4" sx={{ mx: 2, color: 'paletteThirdColour.main' }}>
+                        Projects
+                    </Typography>
+                    <Box sx={{ flexGrow: 1, borderBottom: '2px solid', borderColor: 'paletteThirdColour.main' }} />
+                </Box>
                 <Grid container spacing={4} justifyContent="center" sx={{ mt: 2 }}>
                     {projects.map((project, index) => (
                         <Grid item xs={12} sm={6} md={4} key={index}>
