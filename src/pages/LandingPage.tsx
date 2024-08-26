@@ -10,6 +10,7 @@ import { InfoCard } from "../components/molecules/InfoCard";
 import ProjectsSection from "../components/molecules/ProjectsSection";
 import FooterElement from "../components/atoms/Footer";
 import AboutMeSection from "../components/molecules/AboutMeSection";
+import ContactSection from "../components/molecules/ContactSection";
 
 const Root = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -77,7 +78,8 @@ export function LandingPage() {
                 </Header>
                 <Body>
                     <ProjectsSection ref={projectsSectionRef} />
-                    <AboutMeSection ref1={aboutSectionRef} ref2={contactSectionRef} />
+                    <AboutMeSection ref={aboutSectionRef}/>
+                    <ContactSection ref={contactSectionRef} />
                 </Body>
                 <Footer>
                     <FooterElement />

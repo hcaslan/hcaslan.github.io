@@ -11,14 +11,13 @@ interface AboutMeSectionProps {
 }
 
 // Use ForwardRefRenderFunction with your props interface
-const AboutMeSection: ForwardRefRenderFunction<HTMLDivElement, AboutMeSectionProps> = (props, ref) => {
-    const { ref1, ref2 } = props;
+const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <ThemeElement>
-            <Container ref={ref1} sx={{ py: 8, minHeight: '100vh' }} maxWidth="lg">
+            <Container ref={ref} sx={{ py: 8, minHeight: '100vh' }} maxWidth="lg">
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 4 }}>
                     <Box sx={{ flexGrow: 1, borderBottom: '2px solid', borderColor: 'paletteThirdColour.main' }} />
                     <Typography variant="h4" sx={{ mx: 2, color: 'paletteThirdColour.main' }}>
@@ -50,7 +49,7 @@ const AboutMeSection: ForwardRefRenderFunction<HTMLDivElement, AboutMeSectionPro
                             <Typography variant="body1" gutterBottom>
                                 I graduated from the department of electrical and electronics engineering in 2022. In the following period, I developed small-scale desktop applications with C++ and QT. Then I started a course on full-stack development with Java and finished this course in July 2024.
                             </Typography>
-                            <Typography variant="body1" gutterBottom ref={ref2}>
+                            <Typography variant="body1" gutterBottom>
                                 Now I am actively seeking a job both to increase my experience and to make a living.
                             </Typography>
                             <Grid container spacing={2} sx={{mt:2}}>
@@ -237,6 +236,6 @@ const AboutMeSection: ForwardRefRenderFunction<HTMLDivElement, AboutMeSectionPro
             </Container>
         </ThemeElement>
     );
-};
+});
 
-export default forwardRef(AboutMeSection);
+export default AboutMeSection;

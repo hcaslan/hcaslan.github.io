@@ -3,12 +3,15 @@ import ThemeElement from "../atoms/ThemeElement";
 import { Container, Typography, Grid, Box } from "@mui/material";
 import ProjectCard from "../atoms/ProjectCard";
 
-interface IProject {
+export interface IProject {
     name: string;
     description: string;
     logo: string;
     github: string;
     website: string;
+    githubButton: boolean;
+    websiteButton: boolean;
+    descriptionButton: boolean;
 }
 
 const projects: IProject[] = [
@@ -18,6 +21,29 @@ const projects: IProject[] = [
         logo: 'easyhr-logo.png',
         github: 'https://github.com/hcaslan/EasyHR.git',
         website: 'https://easyhr.store/',
+        githubButton: true,
+        websiteButton: true,
+        descriptionButton: false,
+    },
+    {
+        name: 'HCA Car Rental',
+        description: 'Simple Car Rental App',
+        logo: 'car-rental.png',
+        github: 'https://github.com/hcaslan/CarRentalMicroService.git',
+        website: '',
+        githubButton: true,
+        websiteButton: false,
+        descriptionButton: false,
+    },
+    {
+        name: 'RBCDD Algorithm',
+        description: 'Rule Based Door Detection Algorithm',
+        logo: 'rbcdd.png',
+        github: 'https://github.com/hcaslan/RBCDD.git',
+        website: '',
+        githubButton: true,
+        websiteButton: false,
+        descriptionButton: false,
     },
     // Add more projects here
 ];
@@ -37,11 +63,14 @@ const ProjectsSection = forwardRef<HTMLDivElement>((props, ref) => {
                     {projects.map((project, index) => (
                         <Grid item xs={12} sm={6} md={4} key={index}>
                             <ProjectCard
-                                projectName={project.name}
-                                projectLogo={project.logo}
+                                name={project.name}
+                                logo={project.logo}
                                 github={project.github}
                                 website={project.website}
                                 description={project.description}
+                                githubButton={project.githubButton}
+                                websiteButton={project.websiteButton}
+                                descriptionButton={project.descriptionButton}
                             />
                         </Grid>
                     ))}
