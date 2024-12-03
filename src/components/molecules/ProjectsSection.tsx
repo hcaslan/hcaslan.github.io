@@ -45,6 +45,16 @@ const projects: IProject[] = [
         websiteButton: false,
         descriptionButton: false,
     },
+    {
+        name: 'IBOM',
+        description: 'Integrated Business Operations Management (IBOM) SaaS Platform',
+        logo: 'bilgeadam-logo.png',
+        github: 'https://github.com/hcaslan/IBOM.git',
+        website: '',
+        githubButton: true,
+        websiteButton: false,
+        descriptionButton: false,
+    },
     // Add more projects here
 ];
 

@@ -28,7 +28,7 @@ const ProjectCard = (props:IProject) => {
                             variant="subtitle1"
                             color="text.secondary"
                             component="div"
-                            sx={{ minHeight: '3em', lineHeight: '1em', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                            sx={{ minHeight: '4em', maxHeight: '4em', lineHeight: '1em', overflow: 'hidden', textOverflow: 'ellipsis' }}
                         >
                             {props.description}
                         </Typography>
