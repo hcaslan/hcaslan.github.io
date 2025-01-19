@@ -28,7 +28,7 @@ const projects: IProject[] = [
     {
         name: 'HCA Car Rental',
         description: 'Simple Car Rental App',
-        logo: 'car-rental.png',
+        logo: 'hca.png',
         github: 'https://github.com/hcaslan/CarRentalMicroService.git',
         website: '',
         githubButton: true,
@@ -53,6 +53,16 @@ const projects: IProject[] = [
         website: '',
         githubButton: true,
         websiteButton: false,
+        descriptionButton: false,
+    },
+    {
+        name: 'Pastry Delight',
+        description: 'A simple pastry shop website',
+        logo: 'hca.png',
+        github: 'https://github.com/hcaslan/patisserie-website.git',
+        website: 'https://www.patisserie.live/',
+        githubButton: true,
+        websiteButton: true,
         descriptionButton: false,
     },
     // Add more projects here
