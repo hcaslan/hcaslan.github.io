@@ -2,7 +2,7 @@ import React, { forwardRef, ForwardRefRenderFunction } from 'react';
 import { Grid, Typography, Button, Box, Container, useMediaQuery, useTheme } from '@mui/material';
 import { LinkedIn, Email, Description, GitHub, PictureAsPdf } from '@mui/icons-material';
 import ThemeElement from "../atoms/ThemeElement";
-import CV from '../../assets/HevalCanAslanOZEN.pdf';
+import CV from '../../assets/HevalCanAslanOZEN_CV.pdf';
 
 // Define the props interface
 interface AboutMeSectionProps {
