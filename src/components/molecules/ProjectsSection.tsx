@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import ThemeElement from "../atoms/ThemeElement";
 import { Container, Typography, Grid, Box } from "@mui/material";
 import ProjectCard from "../atoms/ProjectCard";
@@ -6,9 +6,11 @@ import ProjectCard from "../atoms/ProjectCard";
 export interface IProject {
     name: string;
     description: string;
+    details?: string;
     logo: string;
     github: string;
     website: string;
+    images?: string[];
     githubButton: boolean;
     websiteButton: boolean;
     descriptionButton: boolean;
@@ -18,12 +20,14 @@ const projects: IProject[] = [
     {
         name: 'EasyHR',
         description: 'Human Resources App',
+        details:'The EasyHR Website is a comprehensive platform designed to streamline and simplify human resources management for organizations of all sizes. This web application provides a centralized hub for managing employee data, tracking attendance, processing payroll, and automating various HR tasks. It utilizes Java for the backend, and React with TypeScript for the frontend.',
         logo: 'easyhr-logo.png',
         github: 'https://github.com/hcaslan/EasyHR.git',
         website: 'https://easyhr.store/',
+        images: ['https://github.com/user-attachments/assets/c88341cb-ce2c-4286-8bcb-d279dedbd6ed','https://github.com/user-attachments/assets/c4120f4a-7ac2-459f-a82c-597c1600458c','https://github.com/user-attachments/assets/eadc4c2e-2e81-415c-9f55-9eddd6730a2e'],
         githubButton: true,
         websiteButton: true,
-        descriptionButton: false,
+        descriptionButton: true,
     },
     {
         name: 'HCA Car Rental',
@@ -39,21 +43,24 @@ const projects: IProject[] = [
         name: 'RBCDD Algorithm',
         description: 'Rule Based Door Detection Algorithm',
         logo: 'rbcdd.png',
+        details:'The closed-door detection problem is a significant area of research in fields like robotics and building information modeling, primarily due to the importance of door locations in delineating spaces such as rooms and corridors. Traditional methods have relied on visual data, which can be hindered by varying lighting conditions and the camera\'s angle and distance from the door. In this study, we utilized point cloud data to address these challenges and leverage the 3D characteristics of the scene. Our approach was implemented using C++, the Point Cloud Library, and Ubuntu 22.04. We proposed a rule-based method to identify closed doors and determine their positions, extracting rules based on the relationship between walls and hinged doors. Experiments conducted with the ESOGU DOORS dataset demonstrated the effectiveness of our method, achieving a door detection rate of 95.93%.',
         github: 'https://github.com/hcaslan/RBCDD.git',
         website: '',
+        images: ['https://i.imgur.com/Q1wez0G.png','https://i.imgur.com/E4YNvw0.png','https://i.imgur.com/giSofTP.png'],
         githubButton: true,
         websiteButton: false,
-        descriptionButton: false,
+        descriptionButton: true,
     },
     {
         name: 'IBOM',
         description: 'Integrated Business Operations Management (IBOM) SaaS Platform',
         logo: 'bilgeadam-logo.png',
+        details:'IBOM is a multi-tenant SaaS platform aimed at small to medium-sized enterprises (SMEs) that require a modular, integrated solution for managing their business operations. The platform will include modules for project management, customer relationship management (CRM), inventory management, human resources (HR), finance & accounting, and analytics.',
         github: 'https://github.com/hcaslan/IBOM.git',
         website: '',
         githubButton: true,
         websiteButton: false,
-        descriptionButton: false,
+        descriptionButton: true,
     },
     {
         name: 'Pastry Delight',
@@ -69,6 +76,7 @@ const projects: IProject[] = [
 ];
 
 const ProjectsSection = forwardRef<HTMLDivElement>((props, ref) => {
+
     return (
         <ThemeElement>
             <Container ref={ref} sx={{ py: 8, minHeight: '100vh' }} maxWidth="lg">
@@ -85,7 +93,9 @@ const ProjectsSection = forwardRef<HTMLDivElement>((props, ref) => {
                             <ProjectCard
                                 name={project.name}
                                 logo={project.logo}
+                                details={project.details}
                                 github={project.github}
+                                images={project.images}
                                 website={project.website}
                                 description={project.description}
                                 githubButton={project.githubButton}

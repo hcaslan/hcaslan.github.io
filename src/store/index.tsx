@@ -1,6 +1,7 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {
-    headerReducer
+    headerReducer,
+    scrollReducer
 
 } from "./feature";
 
@@ -10,6 +11,7 @@ import {useSelector} from "react-redux";
 const store = configureStore({
     reducer: {
         headerReducer: headerReducer,
+        scroll: scrollReducer,
     }
 });
 

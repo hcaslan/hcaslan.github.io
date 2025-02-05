@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setHeaderOutOfView } from '../store/feature/actions'
 import ParticlesComponent from "../components/atoms/ParticlesComponent";
 import { CssBaseline } from "@mui/material";
@@ -11,6 +11,7 @@ import ProjectsSection from "../components/molecules/ProjectsSection";
 import FooterElement from "../components/atoms/Footer";
 import AboutMeSection from "../components/molecules/AboutMeSection";
 import ContactSection from "../components/molecules/ContactSection";
+import { RootState } from "../store";
 
 const Root = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -40,6 +41,26 @@ export function LandingPage() {
     const projectsSectionRef = useRef<HTMLDivElement>(null);
     const aboutSectionRef = useRef<HTMLDivElement>(null);
     const contactSectionRef = useRef<HTMLDivElement>(null);
+    const sectionRefs = [headerRef, projectsSectionRef, aboutSectionRef, contactSectionRef];
+    const disableScroll = useSelector((state: RootState) => state.scroll.disableScroll);
+
+    const handleScroll = (event: React.WheelEvent) => {
+
+        if (disableScroll) {
+            event.preventDefault(); // Stop background scroll when dialog is open
+            return;
+        }
+        
+        const currentIndex = sectionRefs.findIndex(ref => 
+            ref.current && ref.current.getBoundingClientRect().top >= 0
+        );
+    
+        if (event.deltaY > 0 && currentIndex < sectionRefs.length - 1) {
+            sectionRefs[currentIndex + 1]?.current?.scrollIntoView({ behavior: "smooth" });
+        } else if (event.deltaY < 0 && currentIndex > 0) {
+            sectionRefs[currentIndex - 1]?.current?.scrollIntoView({ behavior: "smooth" });
+        }
+    };
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -64,8 +85,8 @@ export function LandingPage() {
     }, [dispatch]);
 
     return (
-        <ThemeElement>
-            <Root>
+        <ThemeElement >
+            <Root onWheel={handleScroll}>
                 <CssBaseline />
                 <NavBar
                     projectsSectionRef={projectsSectionRef}
