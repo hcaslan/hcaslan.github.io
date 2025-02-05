@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.e765634d.css",
-    "main.js": "/static/js/main.f93ae7e9.js",
-    "static/media/HevalCanAslanOZEN.pdf": "/static/media/HevalCanAslanOZEN.6179f7385a25094153d9.pdf",
+    "main.js": "/static/js/main.3b2d94e6.js",
+    "static/media/HevalCanAslanOZEN.pdf": "/static/media/HevalCanAslanOZEN.8a8a66af6cc85030436b.pdf",
     "index.html": "/index.html",
     "main.e765634d.css.map": "/static/css/main.e765634d.css.map",
-    "main.f93ae7e9.js.map": "/static/js/main.f93ae7e9.js.map"
+    "main.3b2d94e6.js.map": "/static/js/main.3b2d94e6.js.map"
   },
   "entrypoints": [
     "static/css/main.e765634d.css",
-    "static/js/main.f93ae7e9.js"
+    "static/js/main.3b2d94e6.js"
   ]
 }
