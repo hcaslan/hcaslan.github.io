@@ -137,7 +137,7 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
         {/* Main Content */}
         <Grid container spacing={4}>
           {/* Personal Info Card */}
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={7.5}>
             <Fade in={true} timeout={600}>
               <Card
                 sx={{
@@ -329,7 +329,7 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
           </Grid>
 
           {/* Animated Working GIF */}
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4.5}>
             <Fade in={true} timeout={800}>
               <Box
                 sx={{
