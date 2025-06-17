@@ -82,7 +82,7 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <ThemeElement>
       <Container ref={ref} sx={{ py: 8, minHeight: "100vh" }} maxWidth="lg">
-        {/* Header Section - Matching Projects Style */}
+        {/* Header Section */}
         <Box
           sx={{
             display: "flex",
@@ -144,9 +144,18 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
                   height: "100%",
                   background:
                     "linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)",
-                  border: "1px solid #e9ecef",
-                  borderRadius: 3,
                   overflow: "visible",
+                  position: "relative",
+                  "&::before": {
+                    content: '""',
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: "4px",
+                    background:
+                      "linear-gradient(90deg, #08D9D6, #FF2E63, #08D9D6)",
+                  },
                 }}
               >
                 <CardContent sx={{ p: 4 }}>
@@ -313,26 +322,6 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
                     >
                       Download Resume
                     </Button>
-                    {socialLinks.map((link, index) => (
-                      <IconButton
-                        key={link.label}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        sx={{
-                          backgroundColor: "#f8f9fa",
-                          border: "1px solid #e9ecef",
-                          "&:hover": {
-                            backgroundColor: link.color,
-                            color: "white",
-                            transform: "translateY(-2px)",
-                          },
-                          transition: "all 0.3s ease",
-                        }}
-                      >
-                        {link.icon}
-                      </IconButton>
-                    ))}
                   </Box>
                 </CardContent>
               </Card>
@@ -347,6 +336,16 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
                   position: "relative",
                   height: "100%",
                   minHeight: 300,
+                  "&::before": {
+                    content: '""',
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: "4px",
+                    background:
+                      "linear-gradient(90deg, #08D9D6, #FF2E63, #08D9D6)",
+                  },
                 }}
               >
                 <img
@@ -356,8 +355,6 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
-                    borderRadius: 12,
-                    border: "3px solid #e9ecef",
                   }}
                 />
               </Box>
@@ -384,10 +381,12 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
             <Grid item xs={12} md={4}>
               <Card
                 sx={{
+                  background:
+                    "linear-gradient(135deg, #252A34 0%, #1a1f26 100%)",
+                  color: "white",
                   height: "100%",
-                  backgroundColor: "#f8f9fa",
-                  border: "1px solid #e9ecef",
-                  borderRadius: 3,
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
                 <CardContent sx={{ p: 3 }}>
@@ -445,10 +444,12 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
             <Grid item xs={12} md={4}>
               <Card
                 sx={{
+                  background:
+                    "linear-gradient(135deg, #252A34 0%, #1a1f26 100%)",
+                  color: "white",
                   height: "100%",
-                  backgroundColor: "#f8f9fa",
-                  border: "1px solid #e9ecef",
-                  borderRadius: 3,
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
                 <CardContent sx={{ p: 3 }}>
@@ -506,10 +507,12 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
             <Grid item xs={12} md={4}>
               <Card
                 sx={{
+                  background:
+                    "linear-gradient(135deg, #252A34 0%, #1a1f26 100%)",
+                  color: "white",
                   height: "100%",
-                  backgroundColor: "#f8f9fa",
-                  border: "1px solid #e9ecef",
-                  borderRadius: 3,
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
                 <CardContent sx={{ p: 3 }}>
@@ -566,7 +569,7 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
         </Box>
 
         {/* Statistics Section - Matching Projects Style */}
-        <Box sx={{ mt: 8, p: 4, backgroundColor: "#f8f9fa", borderRadius: 3 }}>
+        <Box sx={{ mt: 8, p: 4, backgroundColor: "#f8f9fa", borderRadius: 2 }}>
           <Typography
             variant="h5"
             sx={{
