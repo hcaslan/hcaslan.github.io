@@ -33,26 +33,28 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
 
   const skills = {
     languages: [
-      { name: "Java", level: 90, color: "#ED8B00" },
-      { name: "JavaScript", level: 85, color: "#F7DF1E" },
-      { name: "TypeScript", level: 80, color: "#3178C6" },
-      { name: "Python", level: 75, color: "#3776AB" },
-      { name: "C++", level: 70, color: "#00599C" },
-      { name: "C", level: 65, color: "#A8B9CC" },
+      { name: "Java", color: "#ED8B00" },
+      { name: "JavaScript", color: "#E6C817" },
+      { name: "TypeScript", color: "#3178C6" },
+      { name: "Python", color: "#3776AB" },
+      { name: "C++", color: "#00599C" },
+      { name: "C", color: "#A8B9CC" },
     ],
     frameworks: [
-      { name: "React", level: 88, color: "#61DAFB" },
-      { name: "Spring Boot", level: 85, color: "#6DB33F" },
-      { name: "Node.js", level: 80, color: "#339933" },
-      { name: "Express.js", level: 75, color: "#000000" },
-      { name: "Material-UI", level: 85, color: "#007FFF" },
+      { name: "React", color: "#61DAFB" },
+      { name: "Spring Boot", color: "#6DB33F" },
+      { name: "Material-UI", color: "#007FFF" },
     ],
     tools: [
-      { name: "Docker", level: 80, color: "#2496ED" },
-      { name: "Git", level: 90, color: "#F05032" },
-      { name: "AWS", level: 70, color: "#FF9900" },
-      { name: "PostgreSQL", level: 75, color: "#4169E1" },
-      { name: "MongoDB", level: 70, color: "#47A248" },
+      { name: "Docker", color: "#2496ED" },
+      { name: "Git", color: "#F05032" },
+      { name: "AWS", color: "#FF9900" },
+      { name: "PostgreSQL", color: "#4169E1" },
+      { name: "MongoDB", color: "#47A248" },
+      { name: "Redis", color: "#DC7633" },
+      { name: "Kubernetes", color: "#326CE5" },
+      { name: "VS Code", color: "#007ACC" },
+      { name: "Figma", color: "#F24E1E" },
     ],
   };
 
@@ -401,7 +403,12 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
                     Programming Languages
                   </Typography>
                   <Box
-                    sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: 1.5,
+                      justifyContent: "center",
+                    }}
                   >
                     {skills.languages.map((skill, index) => (
                       <Fade
@@ -409,42 +416,24 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
                         timeout={300 + index * 100}
                         key={skill.name}
                       >
-                        <Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              mb: 0.5,
-                            }}
-                          >
-                            <Typography variant="body2" fontWeight="medium">
-                              {skill.name}
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary">
-                              {skill.level}%
-                            </Typography>
-                          </Box>
-                          <Box
-                            sx={{
-                              width: "100%",
-                              height: 8,
-                              backgroundColor: "#e9ecef",
-                              borderRadius: 4,
-                              overflow: "hidden",
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                width: `${skill.level}%`,
-                                height: "100%",
-                                backgroundColor: skill.color,
-                                borderRadius: 4,
-                                transition: "width 1s ease-in-out",
-                                background: `linear-gradient(90deg, ${skill.color}, ${skill.color}dd)`,
-                              }}
-                            />
-                          </Box>
-                        </Box>
+                        <Chip
+                          label={skill.name}
+                          sx={{
+                            backgroundColor: `${skill.color}20`,
+                            color: skill.color,
+                            border: `2px solid ${skill.color}40`,
+                            fontWeight: "bold",
+                            fontSize: "0.9rem",
+                            height: 40,
+                            "&:hover": {
+                              backgroundColor: skill.color,
+                              color: "white",
+                              transform: "translateY(-2px)",
+                              boxShadow: `0 4px 12px ${skill.color}40`,
+                            },
+                            transition: "all 0.3s ease",
+                          }}
+                        />
                       </Fade>
                     ))}
                   </Box>
@@ -475,7 +464,12 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
                     Frameworks & Libraries
                   </Typography>
                   <Box
-                    sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: 1.5,
+                      justifyContent: "center",
+                    }}
                   >
                     {skills.frameworks.map((skill, index) => (
                       <Fade
@@ -483,42 +477,24 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
                         timeout={500 + index * 100}
                         key={skill.name}
                       >
-                        <Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              mb: 0.5,
-                            }}
-                          >
-                            <Typography variant="body2" fontWeight="medium">
-                              {skill.name}
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary">
-                              {skill.level}%
-                            </Typography>
-                          </Box>
-                          <Box
-                            sx={{
-                              width: "100%",
-                              height: 8,
-                              backgroundColor: "#e9ecef",
-                              borderRadius: 4,
-                              overflow: "hidden",
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                width: `${skill.level}%`,
-                                height: "100%",
-                                backgroundColor: skill.color,
-                                borderRadius: 4,
-                                transition: "width 1s ease-in-out",
-                                background: `linear-gradient(90deg, ${skill.color}, ${skill.color}dd)`,
-                              }}
-                            />
-                          </Box>
-                        </Box>
+                        <Chip
+                          label={skill.name}
+                          sx={{
+                            backgroundColor: `${skill.color}20`,
+                            color: skill.color,
+                            border: `2px solid ${skill.color}40`,
+                            fontWeight: "bold",
+                            fontSize: "0.9rem",
+                            height: 40,
+                            "&:hover": {
+                              backgroundColor: skill.color,
+                              color: "white",
+                              transform: "translateY(-2px)",
+                              boxShadow: `0 4px 12px ${skill.color}40`,
+                            },
+                            transition: "all 0.3s ease",
+                          }}
+                        />
                       </Fade>
                     ))}
                   </Box>
@@ -549,7 +525,12 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
                     Tools & Technologies
                   </Typography>
                   <Box
-                    sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: 1.5,
+                      justifyContent: "center",
+                    }}
                   >
                     {skills.tools.map((skill, index) => (
                       <Fade
@@ -557,42 +538,24 @@ const AboutMeSection = forwardRef<HTMLDivElement>((props, ref) => {
                         timeout={700 + index * 100}
                         key={skill.name}
                       >
-                        <Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              mb: 0.5,
-                            }}
-                          >
-                            <Typography variant="body2" fontWeight="medium">
-                              {skill.name}
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary">
-                              {skill.level}%
-                            </Typography>
-                          </Box>
-                          <Box
-                            sx={{
-                              width: "100%",
-                              height: 8,
-                              backgroundColor: "#e9ecef",
-                              borderRadius: 4,
-                              overflow: "hidden",
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                width: `${skill.level}%`,
-                                height: "100%",
-                                backgroundColor: skill.color,
-                                borderRadius: 4,
-                                transition: "width 1s ease-in-out",
-                                background: `linear-gradient(90deg, ${skill.color}, ${skill.color}dd)`,
-                              }}
-                            />
-                          </Box>
-                        </Box>
+                        <Chip
+                          label={skill.name}
+                          sx={{
+                            backgroundColor: `${skill.color}20`,
+                            color: skill.color,
+                            border: `2px solid ${skill.color}40`,
+                            fontWeight: "bold",
+                            fontSize: "0.9rem",
+                            height: 40,
+                            "&:hover": {
+                              backgroundColor: skill.color,
+                              color: "white",
+                              transform: "translateY(-2px)",
+                              boxShadow: `0 4px 12px ${skill.color}40`,
+                            },
+                            transition: "all 0.3s ease",
+                          }}
+                        />
                       </Fade>
                     ))}
                   </Box>
