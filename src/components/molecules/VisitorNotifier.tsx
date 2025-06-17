@@ -16,8 +16,17 @@ const VisitorNotifier = () => {
       };
 
       try {
-        const response = await emailjs.send(serviceId, templateId, templateParams, publicKey);
-        console.log("Visitor notification sent!", response.status, response.text);
+        const response = await emailjs.send(
+          serviceId,
+          templateId,
+          templateParams,
+          publicKey
+        );
+        console.log(
+          "Visitor notification sent!",
+          response.status,
+          response.text
+        );
       } catch (error) {
         console.error("Failed to send visitor notification:", error);
       }

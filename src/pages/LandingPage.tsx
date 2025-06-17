@@ -50,16 +50,6 @@ export function LandingPage() {
             event.preventDefault(); // Stop background scroll when dialog is open
             return;
         }
-        
-        const currentIndex = sectionRefs.findIndex(ref => 
-            ref.current && ref.current.getBoundingClientRect().top >= 0
-        );
-    
-        if (event.deltaY > 0 && currentIndex < sectionRefs.length - 1) {
-            sectionRefs[currentIndex + 1]?.current?.scrollIntoView({ behavior: "smooth" });
-        } else if (event.deltaY < 0 && currentIndex > 0) {
-            sectionRefs[currentIndex - 1]?.current?.scrollIntoView({ behavior: "smooth" });
-        }
     };
 
     useEffect(() => {
