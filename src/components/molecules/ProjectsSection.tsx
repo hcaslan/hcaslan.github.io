@@ -1,170 +1,320 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import ThemeElement from "../atoms/ThemeElement";
-import { Container, Typography, Grid, Box } from "@mui/material";
-import ProjectCard from "../atoms/ProjectCard";
-
-export interface IProject {
-  name: string;
-  description: string;
-  details?: string;
-  logo: string;
-  github: string;
-  website: string;
-  images?: string[];
-  githubButton: boolean;
-  websiteButton: boolean;
-  descriptionButton: boolean;
-  status: boolean;
-}
-
-const projects: IProject[] = [
-  {
-    name: "EasyHR",
-    description: "Human Resources App",
-    details:
-      "The EasyHR Website is a comprehensive platform designed to streamline and simplify human resources management for organizations of all sizes. This web application provides a centralized hub for managing employee data, tracking attendance, processing payroll, and automating various HR tasks. It utilizes Java for the backend, and React with TypeScript for the frontend.",
-    logo: "easyhr-logo.png",
-    github: "https://github.com/hcaslan/EasyHR.git",
-    website: "https://easyhr.store/",
-    images: [
-      "https://github.com/user-attachments/assets/c88341cb-ce2c-4286-8bcb-d279dedbd6ed",
-      "https://github.com/user-attachments/assets/c4120f4a-7ac2-459f-a82c-597c1600458c",
-      "https://github.com/user-attachments/assets/eadc4c2e-2e81-415c-9f55-9eddd6730a2e",
-    ],
-    githubButton: true,
-    websiteButton: true,
-    descriptionButton: true,
-    status: true,
-  },
-  {
-    name: "HCA Car Rental",
-    description: "Simple Car Rental App",
-    logo: "hca.png",
-    github: "https://github.com/hcaslan/CarRentalMicroService.git",
-    website: "",
-    githubButton: true,
-    websiteButton: false,
-    descriptionButton: false,
-    status: false,
-  },
-  {
-    name: "RBCDD Algorithm",
-    description: "Rule Based Door Detection Algorithm",
-    logo: "rbcdd.png",
-    details:
-      "The closed-door detection problem is a significant area of research in fields like robotics and building information modeling, primarily due to the importance of door locations in delineating spaces such as rooms and corridors. Traditional methods have relied on visual data, which can be hindered by varying lighting conditions and the camera's angle and distance from the door. In this study, we utilized point cloud data to address these challenges and leverage the 3D characteristics of the scene. Our approach was implemented using C++, the Point Cloud Library, and Ubuntu 22.04. We proposed a rule-based method to identify closed doors and determine their positions, extracting rules based on the relationship between walls and hinged doors. Experiments conducted with the ESOGU DOORS dataset demonstrated the effectiveness of our method, achieving a door detection rate of 95.93%.",
-    github: "https://github.com/hcaslan/RBCDD.git",
-    website: "",
-    images: [
-      "https://i.imgur.com/Q1wez0G.png",
-      "https://i.imgur.com/E4YNvw0.png",
-      "https://i.imgur.com/giSofTP.png",
-    ],
-    githubButton: true,
-    websiteButton: false,
-    descriptionButton: true,
-    status: true,
-  },
-  {
-    name: "IBOM",
-    description:
-      "Integrated Business Operations Management (IBOM) SaaS Platform",
-    logo: "bilgeadam-logo.png",
-    details:
-      "IBOM is a multi-tenant SaaS platform aimed at small to medium-sized enterprises (SMEs) that require a modular, integrated solution for managing their business operations. The platform will include modules for project management, customer relationship management (CRM), inventory management, human resources (HR), finance & accounting, and analytics.",
-    github: "https://github.com/hcaslan/IBOM.git",
-    website: "",
-    githubButton: true,
-    websiteButton: false,
-    descriptionButton: true,
-    status: true,
-  },
-  {
-    name: "Pastry Delight",
-    description: "A simple pastry shop website",
-    logo: "hca.png",
-    github: "https://github.com/hcaslan/patisserie-website.git",
-    website: "https://www.patisserie.live/",
-    githubButton: true,
-    websiteButton: true,
-    descriptionButton: false,
-    status: false,
-  },
-  {
-    name: "hc-axios Package",
-    description: "A Powerful Wrapper Around Axios",
-    logo: "hca.png",
-    details:
-      "hc-axios is a powerful wrapper around Axios that simplifies token management, adds retry logic, provides useful debugging features, and eliminates common boilerplate patterns with advanced utilities.",
-    github: "https://github.com/hcaslan/hc-axios.git",
-    website: "https://www.npmjs.com/package/hc-axios",
-    images: [
-      "https://i.imgur.com/j572OqF.png",
-      "https://i.imgur.com/CT6Ue3H.png",
-      "https://i.imgur.com/ZmfNfOH.png",
-    ],
-    githubButton: true,
-    websiteButton: true,
-    descriptionButton: true,
-    status: true,
-  },
-  // Add more projects here
-];
+import { 
+  Container, 
+  Typography, 
+  Grid, 
+  Box, 
+  Chip, 
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  TextField,
+  InputAdornment,
+  Fade
+} from "@mui/material";
+import { Search, FilterList } from "@mui/icons-material";
+import ProjectCard, { IEnhancedProject } from "../atoms/ProjectCard";
+import { enhancedProjects } from "../../data/enhancedProjects";
 
 const ProjectsSection = forwardRef<HTMLDivElement>((props, ref) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("all");
+
+  // Get unique categories from projects
+  const categories = Array.from(new Set(enhancedProjects.map(p => p.category).filter(Boolean)));
+  const statuses = Array.from(new Set(enhancedProjects.map(p => p.projectStatus).filter(Boolean)));
+
+  // Filter projects based on search and filters
+  const filteredProjects = enhancedProjects.filter(project => {
+    const matchesSearch = project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         (project.tagline && project.tagline.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    const matchesCategory = categoryFilter === "all" || project.category === categoryFilter;
+    const matchesStatus = statusFilter === "all" || project.projectStatus === statusFilter;
+    const isActive = project.status; // Only show active projects
+
+    return matchesSearch && matchesCategory && matchesStatus && isActive;
+  });
+
   return (
     <ThemeElement>
       <Container ref={ref} sx={{ py: 8, minHeight: "100vh" }} maxWidth="lg">
+        {/* Header Section */}
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            mb: 4,
+            mb: 6,
           }}
         >
           <Box
             sx={{
               flexGrow: 1,
-              borderBottom: "2px solid",
+              borderBottom: "3px solid",
               borderColor: "paletteThirdColour.main",
             }}
           />
           <Typography
-            variant="h4"
-            sx={{ mx: 2, color: "paletteThirdColour.main" }}
+            variant="h3"
+            sx={{ 
+              mx: 4, 
+              color: "paletteThirdColour.main",
+              fontWeight: 'bold',
+              textAlign: 'center'
+            }}
           >
-            Projects
+            Featured Projects
           </Typography>
           <Box
             sx={{
               flexGrow: 1,
-              borderBottom: "2px solid",
+              borderBottom: "3px solid",
               borderColor: "paletteThirdColour.main",
             }}
           />
         </Box>
-        <Grid container spacing={4} justifyContent="center" sx={{ mt: 2 }}>
-          {projects
-            .filter((project) => project.status)
-            .map((project, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <ProjectCard
-                  name={project.name}
-                  logo={project.logo}
-                  details={project.details}
-                  github={project.github}
-                  images={project.images}
-                  website={project.website}
-                  description={project.description}
-                  githubButton={project.githubButton}
-                  websiteButton={project.websiteButton}
-                  descriptionButton={project.descriptionButton}
-                  status={project.status}
-                />
+
+        {/* Subtitle */}
+        <Typography
+          variant="h6"
+          sx={{
+            textAlign: 'center',
+            color: 'paletteSecondColour.main',
+            mb: 6,
+            maxWidth: '600px',
+            mx: 'auto',
+            lineHeight: 1.6
+          }}
+        >
+          Explore my portfolio of innovative software solutions, from enterprise applications 
+          to cutting-edge research projects
+        </Typography>
+
+        {/* Filters Section */}
+        <Box sx={{ 
+          mb: 4, 
+          p: 3, 
+          backgroundColor: '#f8f9fa', 
+          borderRadius: 3,
+          border: '1px solid #e9ecef'
+        }}>
+          <Grid container spacing={3} alignItems="center">
+            <Grid item xs={12} md={4}>
+              <TextField
+                fullWidth
+                placeholder="Search projects..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search color="action" />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    backgroundColor: 'white',
+                    '&:hover fieldset': {
+                      borderColor: 'paletteFirstColour.main',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'paletteThirdColour.main',
+                    },
+                  },
+                }}
+              />
+            </Grid>
+            
+            <Grid item xs={12} md={3}>
+              <FormControl fullWidth>
+                <InputLabel>Category</InputLabel>
+                <Select
+                  value={categoryFilter}
+                  label="Category"
+                  onChange={(e) => setCategoryFilter(e.target.value)}
+                  sx={{
+                    backgroundColor: 'white',
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'paletteFirstColour.main',
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'paletteThirdColour.main',
+                    },
+                  }}
+                >
+                  <MenuItem value="all">All Categories</MenuItem>
+                  {categories.map((category) => (
+                    <MenuItem key={category} value={category}>
+                      {category}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <FormControl fullWidth>
+                <InputLabel>Status</InputLabel>
+                <Select
+                  value={statusFilter}
+                  label="Status"
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  sx={{
+                    backgroundColor: 'white',
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'paletteFirstColour.main',
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'paletteThirdColour.main',
+                    },
+                  }}
+                >
+                  <MenuItem value="all">All Status</MenuItem>
+                  {statuses.map((status) => (
+                    <MenuItem key={status} value={status}>
+                      {status?.replace('-', ' ').toUpperCase()}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} md={2}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <FilterList color="action" />
+                <Typography variant="body2" color="textSecondary">
+                  {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''}
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+
+        {/* Projects Grid - Responsive layout */}
+        <Grid container spacing={{ xs: 2, sm: 3, md: 4 }} justifyContent="center" alignItems="stretch">
+          {filteredProjects.map((project, index) => (
+            <Fade in={true} timeout={300 + index * 100} key={project.name}>
+              <Grid 
+                item 
+                xs={12}
+                sm={6}
+                md={6}
+                sx={{ 
+                  display: 'flex',
+                  '& > *': {
+                    width: '100%'
+                  }
+                }}
+              >
+                <ProjectCard {...project} />
               </Grid>
-            ))}
+            </Fade>
+          ))}
         </Grid>
+
+        {/* Empty State */}
+        {filteredProjects.length === 0 && (
+          <Box sx={{ 
+            textAlign: 'center', 
+            py: 8,
+            backgroundColor: '#f8f9fa',
+            borderRadius: 3,
+            border: '2px dashed #dee2e6'
+          }}>
+            <Typography variant="h6" color="textSecondary" gutterBottom>
+              No projects found
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              Try adjusting your search terms or filters
+            </Typography>
+          </Box>
+        )}
+
+        {/* Statistics Section */}
+        <Box sx={{ mt: 8, p: 4, backgroundColor: '#f8f9fa', borderRadius: 3 }}>
+          <Typography variant="h5" sx={{ textAlign: 'center', mb: 4, fontWeight: 'bold', color: 'paletteSecondColour.main' }}>
+            Portfolio Overview
+          </Typography>
+          <Grid container spacing={3} justifyContent="center">
+            <Grid item xs={6} sm={3}>
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h3" sx={{ fontWeight: 'bold', color: 'paletteThirdColour.main' }}>
+                  {enhancedProjects.filter(p => p.status).length}
+                </Typography>
+                <Typography variant="body1" color="textSecondary">
+                  Active Projects
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={6} sm={3}>
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h3" sx={{ fontWeight: 'bold', color: 'paletteFirstColour.main' }}>
+                  {categories.length}
+                </Typography>
+                <Typography variant="body1" color="textSecondary">
+                  Categories
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={6} sm={3}>
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h3" sx={{ fontWeight: 'bold', color: 'success.main' }}>
+                  {enhancedProjects.filter(p => p.projectStatus === 'completed').length}
+                </Typography>
+                <Typography variant="body1" color="textSecondary">
+                  Completed
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={6} sm={3}>
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h3" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+                  {enhancedProjects.filter(p => p.projectStatus === 'in-progress').length}
+                </Typography>
+                <Typography variant="body1" color="textSecondary">
+                  In Progress
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+
+        {/* Technology Tags Cloud */}
+        <Box sx={{ mt: 6, textAlign: 'center' }}>
+          <Typography variant="h6" sx={{ mb: 3, color: 'paletteSecondColour.main', fontWeight: 'bold' }}>
+            Technologies I Work With
+          </Typography>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center' }}>
+            {Array.from(new Set(
+              enhancedProjects.flatMap(p => [
+                ...(p.technologies?.frontend || []),
+                ...(p.technologies?.backend || []),
+                ...(p.technologies?.database || []),
+                ...(p.technologies?.tools || [])
+              ])
+            )).map((tech) => (
+              <Chip
+                key={tech}
+                label={tech}
+                variant="outlined"
+                size="small"
+                sx={{
+                  '&:hover': {
+                    backgroundColor: 'paletteFirstColour.main',
+                    color: 'white',
+                    borderColor: 'paletteFirstColour.main'
+                  }
+                }}
+              />
+            ))}
+          </Box>
+        </Box>
       </Container>
     </ThemeElement>
   );
