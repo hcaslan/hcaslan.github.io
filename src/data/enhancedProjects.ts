@@ -169,17 +169,16 @@ export const enhancedProjects: IEnhancedProject[] = [
     category: "Open Source Library",
     projectStatus: "in-progress",
     startDate: "2025-06",
-    endDate: "ongoing",
-    duration: "3 months",
+    endDate: "Ongoing",
     team: {
       size: 1,
       role: "Library Author & Maintainer"
     },
     technologies: {
       frontend: [],
-      backend: ["TypeScript", "Node.js", "Axios"],
+      backend: [],
       database: [],
-      tools: ["NPM", "TypeDoc"]
+      tools: ["JavaScript", "TypeScript", "Axios", "Jest", "NPM", "TypeDoc"]
     },
     features: [
       "Automatic Token Management",
