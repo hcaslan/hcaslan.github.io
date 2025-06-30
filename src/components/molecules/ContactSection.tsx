@@ -198,7 +198,6 @@ const ContactSection = forwardRef<HTMLDivElement>((props, ref) => {
               sx={{
                 background: "linear-gradient(135deg, #252A34 0%, #1a1f26 100%)",
                 color: "white",
-                height: "100%",
                 position: "relative",
                 overflow: "hidden",
                 "&::before": {
@@ -226,16 +225,6 @@ const ContactSection = forwardRef<HTMLDivElement>((props, ref) => {
                   }}
                 >
                   Let's Connect
-                </Typography>
-
-                <Typography
-                  variant="body1"
-                  sx={{ mb: 4, opacity: 0.9, lineHeight: 1.7 }}
-                >
-                  I'm always excited to discuss new opportunities, innovative
-                  projects, and potential collaborations. Whether you have a
-                  question, a project idea, or just want to say hello, I'd love
-                  to hear from you.
                 </Typography>
 
                 <Box sx={{ space: 3 }}>
@@ -290,50 +279,6 @@ const ContactSection = forwardRef<HTMLDivElement>((props, ref) => {
                       </Box>
                     </Box>
                   ))}
-                </Box>
-
-                {/* Quick Stats */}
-                <Box
-                  sx={{
-                    mt: 4,
-                    pt: 3,
-                    borderTop: "1px solid rgba(255, 255, 255, 0.1)",
-                  }}
-                >
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ mb: 2, fontWeight: 600 }}
-                  >
-                    Response Time
-                  </Typography>
-                  <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                      <Box sx={{ textAlign: "center" }}>
-                        <Typography
-                          variant="h4"
-                          sx={{ fontWeight: "bold", color: "#08D9D6" }}
-                        >
-                          {"<24h"}
-                        </Typography>
-                        <Typography variant="caption" sx={{ opacity: 0.7 }}>
-                          Email Response
-                        </Typography>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Box sx={{ textAlign: "center" }}>
-                        <Typography
-                          variant="h4"
-                          sx={{ fontWeight: "bold", color: "#FF2E63" }}
-                        >
-                          100%
-                        </Typography>
-                        <Typography variant="caption" sx={{ opacity: 0.7 }}>
-                          Response Rate
-                        </Typography>
-                      </Box>
-                    </Grid>
-                  </Grid>
                 </Box>
               </CardContent>
             </Card>
@@ -538,6 +483,64 @@ const ContactSection = forwardRef<HTMLDivElement>((props, ref) => {
                 </Box>
               </form>
             </Paper>
+          </Grid>
+        </Grid>
+        <Grid container spacing={4} sx={{ mt: 1 }}>
+          <Grid item xs={12}>
+            <Typography
+              variant="h5"
+              sx={{
+                textAlign: "center",
+                mb: 4,
+                fontWeight: "bold",
+                color: "paletteSecondColour.main",
+              }}
+            >
+              Response Time
+            </Typography>
+            <Card
+              sx={{
+                background: "linear-gradient(135deg, #252A34 0%, #1a1f26 100%)",
+                width: "100%",
+                color: "white",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <CardContent sx={{ p: 4, pt: 5 }}>
+                {/* Quick Stats */}
+                <Box sx={{}}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                      <Box sx={{ textAlign: "center" }}>
+                        <Typography
+                          variant="h4"
+                          sx={{ fontWeight: "bold", color: "#08D9D6" }}
+                        >
+                          {"<24h"}
+                        </Typography>
+                        <Typography variant="caption" sx={{ opacity: 0.7 }}>
+                          Email Response
+                        </Typography>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Box sx={{ textAlign: "center" }}>
+                        <Typography
+                          variant="h4"
+                          sx={{ fontWeight: "bold", color: "#FF2E63" }}
+                        >
+                          100%
+                        </Typography>
+                        <Typography variant="caption" sx={{ opacity: 0.7 }}>
+                          Response Rate
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
       </Container>
