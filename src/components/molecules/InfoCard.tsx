@@ -23,9 +23,6 @@ export function InfoCard() {
             <Typography variant="h2" component="div">
               Heval Can Aslan OZEN
             </Typography>
-            <Typography variant="h5" component="p" sx={{ mt: 2 }}>
-              Software Engineer
-            </Typography>
           </CardContent>
         </CenteredCard>
       }
