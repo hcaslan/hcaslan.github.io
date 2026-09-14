@@ -1,14 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.e765634d.css",
-    "main.js": "/static/js/main.ac982232.js",
-    "static/media/HevalCanAslanOZEN_CV.pdf": "/static/media/HevalCanAslanOZEN_CV.4836b955447af138d838.pdf",
+    "main.js": "/static/js/main.2d786972.js",
     "index.html": "/index.html",
     "main.e765634d.css.map": "/static/css/main.e765634d.css.map",
-    "main.ac982232.js.map": "/static/js/main.ac982232.js.map"
+    "main.2d786972.js.map": "/static/js/main.2d786972.js.map"
   },
   "entrypoints": [
     "static/css/main.e765634d.css",
-    "static/js/main.ac982232.js"
+    "static/js/main.2d786972.js"
   ]
 }
